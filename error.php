@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
+  <?php require 'blocks/header.php'; ?>
   Ошибка 404, перейдите <a href="/">на главную</a>
+  <?php require 'blocks/footer.php'; ?>
 </body>
 </html>
