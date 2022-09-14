@@ -1,8 +1,11 @@
 <?php
-  $username = trim(filter_var($_POST['username'], FILTER_SANITIZE_STRING));
-  $email = trim(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
-  $login = trim(filter_var($_POST['login'], FILTER_SANITIZE_STRING));
-  $pass = trim(filter_var($_POST['pass'], FILTER_SANITIZE_STRING));
+  $_POST = json_decode(file_get_contents('php://input'), true);
+  print($_POST);
+
+  $username = trim(filter_var($_POST['username' ], FILTER_SANITIZE_STRING));
+  $email = trim(filter_var($_POST   ['email'    ], FILTER_SANITIZE_EMAIL));
+  $login = trim(filter_var($_POST   ['login'    ], FILTER_SANITIZE_STRING));
+  $pass = trim(filter_var($_POST    ['pass'     ], FILTER_SANITIZE_STRING));
 
   if(strlen($username) <= 3)
     exit();
