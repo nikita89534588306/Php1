@@ -67,13 +67,11 @@
       .then(function (res) {
         console.log(res.data);
         if(res.data === "Готово") {
-          console.log("Ok");
           errBlock.style.display = "none";
           button.textContent  = "Все готово";
         }
         else {
           errBlock.style.display = "block";
-          console.log("err");
           errBlock.textContent = res.data;
         }
       })
