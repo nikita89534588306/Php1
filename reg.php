@@ -29,6 +29,8 @@
           <label for="pass">Пароль</label>
           <input type="password" name="pass" id="pass" class="form-control">
 
+          <div class="alert alert-danger mt-2" id="errBlock" style="display: none;"></div>
+
           <button type="button"  id="reg_user" class="btn btn-success mt-5">
             Зарегистрироваться
           </button>
@@ -48,6 +50,8 @@
     const email = document.querySelector('#email');
     const login = document.querySelector('#login');
     const pass = document.querySelector('#pass');
+
+    const errBlock = document.querySelector('#errBlock');
     
     button.addEventListener('click', function () {
       axios({
@@ -59,7 +63,20 @@
           login:      login.value,
           pass:       pass.value,
         }
-      });
+      })
+      .then(function (res) {
+        console.log(res.data);
+        if(res.data === "Готово") {
+          console.log("Ok");
+          errBlock.style.display = "none";
+          button.textContent  = "Все готово";
+        }
+        else {
+          errBlock.style.display = "block";
+          console.log("err");
+          errBlock.textContent = res.data;
+        }
+      })
     });    
 
   </script>
