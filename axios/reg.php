@@ -27,8 +27,6 @@
 
   require_once '../mySql_connect.php'; 
 
-  $dsn = 'mysql:host='.$host.';dbname='.$db;
-  $pdo = new PDO($dsn, $user, $password);
   $sql = 'INSERT INTO users(name, email, login, pass) VALUES(?, ?, ?, ?)';
   $query = $pdo->prepare($sql);
   $query->execute([$username, $email, $login, $pass]);
