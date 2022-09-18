@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <?php
-    $website_title = 'Регистрация на сайте';
+    $website_title = 'Авторизация на сайте';
     require 'blocks/head.php';
   ?>
 
@@ -15,13 +15,11 @@
   <main class="container mt-5">
     <div class="row">
       <div class="col-md-8 mb-3">
-        <h4>Форма регистрации</h4>
+        <?php
+            if($_COOKIE['log'] == ''): 
+        ?>
+        <h4>Форма авторизации</h4>
         <form action="" method="post">
-          <label for="username">Ваше имя</label>
-          <input type="text" name="username" id="username" class="form-control">
-
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" class="form-control">
 
           <label for="login">Логин</label>
           <input type="text" name="login" id="login" class="form-control">
@@ -31,10 +29,15 @@
 
           <div class="alert alert-danger mt-2" id="errBlock" style="display: none;"></div>
 
-          <button type="button"  id="reg_user" class="btn btn-success mt-5">
-            Зарегистрироваться
+          <button type="button"  id="auth_user" class="btn btn-success mt-5">
+            Войти
           </button>
         </form>
+        <?php else: ?>
+            <h2><?=$_COOKIE['log']?></h2>
+            <button class="btn btn-danger" id="exit_btn">Выйти</button>
+        <?php endif;?>
+
       </div>
 
       <?php require 'blocks/aside.php'; ?>
@@ -45,9 +48,8 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
 
-    const button = document.querySelector('#reg_user');
-    const username = document.querySelector('#username');
-    const email = document.querySelector('#email');
+    const button = document.querySelector('#auth_user');
+
     const login = document.querySelector('#login');
     const pass = document.querySelector('#pass');
 
@@ -56,10 +58,8 @@
     button.addEventListener('click', function () {
       axios({
         method: 'post',
-        url: '/axios/reg.php',
+        url: '/axios/auth.php',
         data: {
-          username:   username.value,
-          email:      email.value,
           login:      login.value,
           pass:       pass.value,
         }
@@ -68,7 +68,8 @@
         console.log(res.data);
         if(res.data === "Готово") {
           errBlock.style.display = "none";
-          button.textContent  = "Все готово";
+          button.textContent  = "Готово";
+          document.location.reload(true);
         }
         else {
           errBlock.style.display = "block";
@@ -78,6 +79,22 @@
     });    
 
   </script>
+  <script>
 
+    const exit = document.querySelector('#exit_btn');
+
+    exit.addEventListener('click', function () {
+        console.log("asd")
+    axios({
+        method: 'post',
+        url: '/axios/exit.php',
+        data: {}
+    })
+    .then(function (res) {
+        document.location.reload(true);
+    })
+    });    
+
+  </script>
 </body>
 </html>

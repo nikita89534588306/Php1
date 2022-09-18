@@ -10,11 +10,11 @@
   if(strlen($username) <= 3)
     $err = 'введите имя';
   else if(strlen($email) <= 3)
-    $err = 'ведите почту';
+    $err = 'введите почту';
   else if(strlen($login) <= 3)
-    $err = 'ведите логин';
+    $err = 'введите логин';
   else if(strlen($pass) <= 3)
-    $err = 'ведите пароль';
+    $err = 'введите пароль';
 
   if($err != "") {
     echo $err;
@@ -25,11 +25,8 @@
   $hash = "sdfjsdkhgs234jh324SDk";
   $pass = md5($pass . $hash);
 
-  $user = 'root';
-  $password = '';
-  $db = 'testPhp1';
-  $host = 'localhost';
-  
+  require_once '../mySql_connect.php'; 
+
   $dsn = 'mysql:host='.$host.';dbname='.$db;
   $pdo = new PDO($dsn, $user, $password);
   $sql = 'INSERT INTO users(name, email, login, pass) VALUES(?, ?, ?, ?)';
